@@ -1,0 +1,4 @@
+useDynLib(fastmatrix, .registration = TRUE)
+
+## our exports:
+export(dupl.cross, dupl.info, dupl.prod, duplication, hadamard, vec, vech)
