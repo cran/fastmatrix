@@ -3,8 +3,8 @@
 
 \title{Duplication matrix}
 \description{
-  This function returns the duplication matrix of order \code{n} which transforms,
-  for a symmetric matrix \code{x}, \code{vech(x)} into \code{vec(x)}.
+  This function returns the duplication matrix of order \eqn{n} which transforms,
+  for a symmetric matrix \eqn{{\bf{A}}}, \code{vech}\eqn{({\bf{A}})} into \code{vec}\eqn{({\bf{A}})}.
 }
 \usage{
   duplication(n = 1, matrix = FALSE, condensed = FALSE)
@@ -25,14 +25,14 @@
   be small. This matrix can require a huge amount of storage.
 }
 \value{
-  Returns an \eqn{n^2} by \eqn{n(n + 1)/2} matrix.
+  Returns an \eqn{n^2} by \eqn{n(n + 1)/2} matrix (if requested).
 }
 \references{
-  Magnus, J.R., and Neudecker, H. (1980).
+  Magnus, J.R., Neudecker, H. (1980).
   The elimination matrix, some lemmas and applications.
   \emph{SIAM Journal on Algebraic Discrete Methods} \bold{1}, 422-449.
 
-  Magnus, J.R., and Neudecker, H. (2007).
+  Magnus, J.R., Neudecker, H. (2007).
   \emph{Matrix Differential Calculus with Applications in Statistics and Econometrics}, 3rd Edition.
   Wiley, New York.
 }
@@ -49,13 +49,14 @@ object.size(z) # 80.6 Kb of storage
 D100 <- duplication(n = 100, matrix = TRUE)
 object.size(D100) # 202 Mb of storage, do not request this matrix!
 
-D3 <- duplication(3, matrix = TRUE)
+# a small example
+D3 <- duplication(n = 3, matrix = TRUE)
 a <- matrix(c( 1, 2, 3,
                2, 3, 4,
                3, 4, 5), nrow = 3)
-upper <- a[upper.tri(a, diag = TRUE)]
+upper <- vech(a)
 v <- D3 \%*\% upper
-as.vector(v)
+all(vec(a) == as.vector(v)) # vectors are equal!
 }
 \keyword{array}
 \keyword{algebra}

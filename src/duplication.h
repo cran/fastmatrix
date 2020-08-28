@@ -6,6 +6,7 @@
 #include "base.h"
 
 /* routines for operations on duplication matrices */
+extern void dupl_cols(int *, int *);
 extern void duplication_mat(int *, int *, int *, int *);
 extern void dupl_left_mult(double *, int *, int *, int *, int *, int *, double *, int *);
 extern void dupl_left_trans(double *, int *, int *, int *, int *, int *, int *, double *, int *);

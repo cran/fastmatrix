@@ -1,7 +1,20 @@
-/* $ID: duplication.c, last updated 2020-08-03, F.Osorio */
+/* $ID: duplication.c, last updated 2020-08-10, F.Osorio */
 
 #include "base.h"
 #include "duplication.h"
+
+void
+dupl_cols(int *order, int *cols)
+{ /* compact information to build a duplication matrix */
+  int n = *order, k = 0;
+
+  for (int i = 0; i < n; i++) {
+    for (int j = i; j < n; j++) {
+      k++;
+      cols[i + j * n] = cols[j + i * n] = k;
+    }
+  }
+}
 
 void
 duplication_mat(int *x, int *ldx, int *n, int *col)
@@ -33,7 +46,7 @@ dupl_left_mult(double *a, int *lda, int *arow, int *acol, int *col, int *n, doub
 void
 dupl_left_trans(double *a, int *lda, int *arow, int *acol, int *col, int *n, int *counts, double *b, int *ldb)
 { /* computes: B <- t(Dn) %*% A */
-  int nrow = *n * (*n + 1) / 2, ncol = SQR(*n), pos1, pos2, k;
+  int nrow = *n * (*n + 1) / 2, ncol = SQR(*n), pos1 = 0, pos2 = 0, k;
 
   if (*arow != ncol)
     return;
@@ -58,7 +71,7 @@ dupl_left_trans(double *a, int *lda, int *arow, int *acol, int *col, int *n, int
 void
 dupl_right_mult(double *a, int *lda, int *arow, int *acol, int *col, int *n, int *counts, double *b, int *ldb)
 { /* computes: B <- A %*% Dn */
-  int nrow = SQR(*n), ncol = *n * (*n + 1) / 2, pos1, pos2, k;
+  int nrow = SQR(*n), ncol = *n * (*n + 1) / 2, pos1 = 0, pos2 = 0, k;
 
   if (*acol != nrow)
     return;
