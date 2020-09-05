@@ -1,4 +1,4 @@
-c ID: norms_extra.f, last updated 2020-08-12, F.Osorio
+c ID: minkowski.f, last updated 2020-09-01, F.Osorio
 
 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
       DOUBLE PRECISION FUNCTION minkowski(n, x, inc, p)
@@ -25,7 +25,7 @@ c
       do i = 1, ninc, inc
         accum = accum + dabs(x(i))**p
       end do
-      minkowski = accum
+      minkowski = accum**(1.0 / p)
       return
 c
 c     code for increment equal to 1
@@ -43,25 +43,6 @@ c
      *  + dabs(x(i + 5))**p + dabs(x(i + 6))**p + dabs(x(i + 7))**p
       end do
    22 minkowski = accum**(1.0 / p)
-c
-      return
-      END
-
-ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-      DOUBLE PRECISION FUNCTION dnrminf(n, x, inc)
-      INTEGER          n, inc
-      DOUBLE PRECISION x(*)
-c
-c     computes the infinity-norm of x
-c
-c     .. BLAS functions ..
-      INTEGER idamax
-c     .. local scalars ..
-      INTEGER idx
-c
-      dnrminf = 0.0d0
-      idx = idamax(n, x, inc)
-      dnrminf = dabs(x(idx))
 c
       return
       END
