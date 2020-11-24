@@ -180,6 +180,33 @@ void BLAS3_trsm(double alpha, double *a, int lda, int nrow, int ncol, char *side
   fun(alpha, a, lda, nrow, ncol, side, uplo, trans, diag, y, ldy);
 }
 
+/*  operations on vectors: external API */
+
+double FM_norm_sqr(double *x, int inc, int n) {
+  static DBL_FUNC fun = NULL;
+  if (fun == NULL) {
+    fun = (DBL_FUNC) R_GetCCallable("fastmatrix", "FM_norm_sqr");
+    if (fun == NULL) Rf_error("cannot find function 'FM_norm_sqr'");
+  }
+  return(fun(x, inc, n));
+}
+
+void FM_normalize(double *x, int inc, int n) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_normalize");
+  fun(x, inc, n);
+}
+
+double FM_vecsum(double *x, int inc, int n) {
+  static DBL_FUNC fun = NULL;
+  if (fun == NULL) {
+    fun = (DBL_FUNC) R_GetCCallable("fastmatrix", "FM_vecsum");
+    if (fun == NULL) Rf_error("cannot find function 'FM_vecsum'");
+  }
+  return(fun(x, inc, n));
+}
+
 /* basic matrix manipulations: external API */
 
 void FM_add_mat(double *y, int ldy, double alpha, double *x, int ldx, int nrow, int ncol) {
@@ -277,6 +304,54 @@ void FM_tcrossprod(double *z, double *x, int ldx, int xrows, int xcols, double *
   fun(z, x, ldx, xrows, xcols, y, ldy, yrows, ycols);
 }
 
+/* operations on triangular matrices: external API */
+
+void FM_cpy_lower(double *x, int ldx, int p, double *y, int ldy) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_cpy_lower");
+  fun(x, ldx, p, y, ldy);
+}
+
+void FM_cpy_upper(double *x, int ldx, int p, double *y, int ldy) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_cpy_upper");
+  fun(x, ldx, p, y, ldy);
+}
+
+void FM_cpy_lower2upper(double *x, int ldx, int p, double *y) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_cpy_lower2upper");
+  fun(x, ldx, p, y);
+}
+
+void FM_cpy_upper2lower(double *x, int ldx, int p, double *y) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_cpy_upper2lower");
+  fun(x, ldx, p, y);
+}
+
+double FM_sum_lower_tri(double *x, int ldx, int p, int job) {
+  static DBL_FUNC fun = NULL;
+  if (fun == NULL) {
+    fun = (DBL_FUNC) R_GetCCallable("fastmatrix", "FM_sum_lower_tri");
+    if (fun == NULL) Rf_error("cannot find function 'FM_sum_lower_tri'");
+  }
+  return(fun(x, ldx, p, job));
+}
+
+double FM_sum_upper_tri(double *x, int ldx, int p, int job) {
+  static DBL_FUNC fun = NULL;
+  if (fun == NULL) {
+    fun = (DBL_FUNC) R_GetCCallable("fastmatrix", "FM_sum_upper_tri");
+    if (fun == NULL) Rf_error("cannot find function 'FM_sum_upper_tri'");
+  }
+  return(fun(x, ldx, p, job));
+}
+
 /* matrix factorizations: external API */
 
 void FM_chol_decomp(double *a, int lda, int p, int job, int *info) {
@@ -291,6 +366,20 @@ void FM_QR_decomp(double *mat, int ldmat, int nrow, int ncol, double *qraux, int
   if (fun == NULL)
     fun = (void (*)) R_GetCCallable("fastmatrix", "FM_QR_decomp");
   fun(mat, ldmat, nrow, ncol, qraux, info);
+}
+
+void FM_QL_decomp(double *mat, int ldmat, int nrow, int ncol, double *qlaux, int *info) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_QL_decomp");
+  fun(mat, ldmat, nrow, ncol, qlaux, info);
+}
+
+void FM_LQ_decomp(double *mat, int ldmat, int nrow, int ncol, double *lqaux, int *info) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_LQ_decomp");
+  fun(mat, ldmat, nrow, ncol, lqaux, info);
 }
 
 void FM_svd_decomp(double *mat, int ldmat, int nrow, int ncol, double *u, int ldu, double *d, double *v, int ldv, int job, int *info) {
@@ -330,6 +419,41 @@ void FM_QR_store_R(double *qr, int ldq, int nrow, int ncol, double *Dest, int ld
   fun(qr, ldq, nrow, ncol, Dest, ldDest);
 }
 
+void FM_QL_qy(double *ql, int ldq, int nrow, int ncol, double *qlaux, double *ymat, int ldy, int yrow, int ycol, int *info) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_QL_qy");
+  fun(ql, ldq, nrow, ncol, qlaux, ymat, ldy, yrow, ycol, info);
+}
+
+void FM_QL_qty(double *ql, int ldq, int nrow, int ncol, double *qlaux, double *ymat, int ldy, int yrow, int ycol, int *info) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_QL_qty");
+  fun(ql, ldq, nrow, ncol, qlaux, ymat, ldy, yrow, ycol, info);
+}
+
+void FM_LQ_yq(double *lq, int ldl, int nrow, int ncol, double *lqaux, double *ymat, int ldy, int yrow, int ycol, int *info) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_LQ_yq");
+  fun(lq, ldl, nrow, ncol, lqaux, ymat, ldy, yrow, ycol, info);
+}
+
+void FM_LQ_yqt(double *lq, int ldl, int nrow, int ncol, double *lqaux, double *ymat, int ldy, int yrow, int ycol, int *info) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_LQ_yqt");
+  fun(lq, ldl, nrow, ncol, lqaux, ymat, ldy, yrow, ycol, info);
+}
+
+void FM_LQ_store_L(double *lq, int ldq, int nrow, double *Dest, int ldDest) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_LQ_store_L");
+  fun(lq, ldq, nrow, Dest, ldDest);
+}
+
 /* matrix inversion and linear solvers: external API */
 
 void FM_backsolve(double *r, int ldr, int n, double *b, int ldb, int nrhs, int *info) {
@@ -367,6 +491,49 @@ void FM_invert_triangular(double *a, int lda, int n, int job, int *info) {
   fun(a, lda, n, job, info);
 }
 
+/* least square procedures: external API */
+
+void FM_lsfit(double *x, int ldx, int nrow, int ncol, double *y, int ldy, int nrhs, double *coef, int *info) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_lsfit");
+  fun(x, ldx, nrow, ncol, y, ldy, nrhs, coef, info);
+}
+
+void FM_gls_GQR(double *x, int ldx, int nrow, int ncol, double *y, double *cov, double *coef, int *info) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_gls_GQR");
+  fun(x, ldx, nrow, ncol, y, cov, coef, info);
+}
+
+/* Distances: external API */
+
+double FM_pythag(double a, double b) {
+  static DBL_FUNC fun = NULL;
+  if (fun == NULL) {
+    fun = (DBL_FUNC) R_GetCCallable("fastmatrix", "FM_pythag");
+    if (fun == NULL) Rf_error("cannot find function 'FM_pythag'");
+  }
+  return(fun(a, b));
+}
+
+double FM_mahalanobis(double *x, int p, double *center, double *Root) {
+  static DBL_FUNC fun = NULL;
+  if (fun == NULL) {
+    fun = (DBL_FUNC) R_GetCCallable("fastmatrix", "FM_mahalanobis");
+    if (fun == NULL) Rf_error("cannot find function 'FM_mahalanobis'");
+  }
+  return(fun(x, p, center, Root));
+}
+
+void FM_mahal_distances(double *x, int n, int p, double *center, double *cov, int inverted, double *distances) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_mahal_distances");
+  fun(x, n, p, center, cov, inverted, distances);
+}
+
 /* Descriptive statistics: external API */
 
 void FM_mean_and_var(double *x, int nobs, double *mean, double *var) {
@@ -390,6 +557,13 @@ void FM_center_and_Scatter(double *x, int n, int p, double *weights, double *cen
   fun(x, n, p, weights, center, Scatter);
 }
 
+void FM_skewness_and_kurtosis(double *x, int n, int p, double *center, double *Scatter, double *stats, int do_skewness) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_skewness_and_kurtosis");
+  fun(x, n, p, center, Scatter, stats, do_skewness);
+}
+
 void FM_cov_MSSD(double *x, int n, int p, double *center, double *Scatter) {
   static void (*fun)() = NULL;
   if (fun == NULL)
@@ -408,11 +582,25 @@ double FM_find_quantile(double *a, int n, int k) {
 
 /* Misc: external API */
 
+void FM_centering(double *x, int n, int p, double *center) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_centering");
+  fun(x, n, p, center);
+}
+
 void FM_cov2cor(double *cov, int p) {
   static void (*fun)() = NULL;
   if (fun == NULL)
     fun = (void (*)) R_GetCCallable("fastmatrix", "FM_cov2cor");
   fun(cov, p);
+}
+
+void FM_sherman_morrison(double *a, int lda, int n, double *b, double *d, int inverted) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_sherman_morrison");
+  fun(a, lda, n, b, d, inverted);
 }
 
 /* 'DEBUG' routine: external API */

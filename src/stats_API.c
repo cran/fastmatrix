@@ -1,4 +1,4 @@
-/* ID: stats.c, last updated 2020-09-03, F.Osorio */
+/* ID: stats_API.c, last updated 2020-09-03, F.Osorio */
 
 #include "fastmatrix.h"
 
@@ -67,6 +67,48 @@ FM_center_and_Scatter(double *x, int n, int p, double *weights, double *center, 
   }
 
   Free(diff);
+}
+
+void
+FM_skewness_and_kurtosis(double *x, int n, int p, double *center, double *Scatter, double *stats, int do_skewness)
+{ /* computes Mardia's multivariate skewness and kurtosis */
+  char *side = "R", *uplo = "L", *trans = "T", *diag = "N";
+  int info = 0, job = 0;
+  double dist, skew = 0.0, kurt = 0.0;
+
+  /* computes the triangular factor of 'Scatter' matrix */
+  FM_chol_decomp(Scatter, p, p, job, &info);
+  if (info)
+    error("Covariance matrix is possibly not positive-definite");
+
+  /* standardizing the rows of the data matrix */
+  FM_centering(x, n, p, center);
+  BLAS3_trsm(1.0, Scatter, p, n, p, side, uplo, trans, diag, x, n);
+
+  /* computation of kurtosis coefficient */
+  for (int i = 0; i < n; i++) {
+    dist  = FM_norm_sqr(x + i, n, p);
+    skew += R_pow_di(dist, 3);
+    kurt += SQR(dist);
+  }
+
+  if (!do_skewness) { /* skewness coefficient is not required */
+    stats[0] = 0.0;
+    stats[1] = kurt / n;
+    return;
+  }
+
+  /* computation of skewness coefficient */
+  for (int i = 0; i < n; i++){
+    for (int j = i + 1; j < n; j++) {
+      dist  = BLAS1_dot_product(x + i, n, x + j, n, p);
+      skew += 2.0 * R_pow_di(dist, 3);
+    }
+  }
+
+  /* copying coefficients */
+  stats[0] = skew / SQR(n);
+  stats[1] = kurt / n;
 }
 
 void
