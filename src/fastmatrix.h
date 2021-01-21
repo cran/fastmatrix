@@ -14,12 +14,14 @@
 #include <R_ext/Applic.h>
 
 /* some definitions */
-#define DNULLP    (double *) 0
-#define MAX(a,b)  (((a)>(b)) ? (a) : (b))
-#define MIN(a,b)  (((a)<(b)) ? (a) : (b))
-#define SQR(x)    R_pow_di(x, 2)
-#define SGN(x)    (((x) >= 0) ? 1.0 : -1.0)
-#define repeat    for(;;)
+#define DNULLP     (double *) 0
+#define EPS_CONV   1.0e-2
+#define GOLDEN     0.3819660112501051
+#define MAX(a,b)   (((a)>(b)) ? (a) : (b))
+#define MIN(a,b)   (((a)<(b)) ? (a) : (b))
+#define repeat     for(;;)
+#define SGN(x)     (((x) >= 0) ? 1.0 : -1.0)
+#define SQR(x)     R_pow_di(x, 2)
 
 /* operations on arrays */
 void F77_NAME(arraymult)(double *, int *, int *, int *, double *, int *, int *, int *, double *, int *, int *, double *, int *, int *);
@@ -72,11 +74,16 @@ void svd_dcmp(double *, int *, int *, int *, double *, int *, double *, double *
 /* OLS using QR decomposition */
 void OLS_qr(double *, int *, int *, int *, double *, double *, double *, double *, double *, double *);
 
+/* ridge regression */
+void OLS_ridge(double *, int *, int *, int *, double *, double *, double *, double *, double *, double *, double *, double *, double *, double *, double *, double *, double *, int *, int *, double *);
+
 /* descriptive statistics */
 void cov_weighted(double *, int *, int *, double *, double *, double *);
 void cov_MSSD(double *, int *, int *, double *, double *);
+void geometric_mean(double *, int *, double *);
 void mahal_distances(double *, int *, int *, double *, double *, int *, double *);
 void skewness_and_kurtosis(double *, int *, int *, double *, double *, double *, int *);
+void wilson_hilferty_chisq(double *, int *, int *, double *);
 
 /* sweep operator for symmetric matrices */
 void sweep_operator(double *, int *, int *, int *, int *, int *);
@@ -181,14 +188,24 @@ void FM_gls_GQR(double *, int, int, int, double *, double *, double *, int *);
 double FM_pythag(double, double);
 double FM_mahalanobis(double *, int, double *, double *);
 void FM_mahal_distances(double *, int, int, double *, double *, int, double *);
+void FM_WH_chisq(double *, int, int, double *);
+void FM_WH_F(double *, int, int, double, double *);
+
+/* products */
+void FM_two_product_FMA(double, double, double *, double *);
+void FM_compensated_product(double *, int, double *);
 
 /* descriptive statistics */
 void FM_mean_and_var(double *, int, double *, double *);
 void FM_online_covariance(double *, double *, int, double *, double *, double *, double *, double *);
+void FM_geometric_mean(double *, int, double *);
 void FM_center_and_Scatter(double *, int, int, double *, double *, double *);
 void FM_skewness_and_kurtosis(double *, int, int, double *, double *, double *, int);
 void FM_cov_MSSD(double *, int, int, double *, double *);
 double FM_find_quantile(double *, int, int);
+
+/* Brent's method for unidimensional optimization */
+double FM_brent(double, double, double (*f)(double, void *), void *, double);
 
 /* misc */
 void FM_centering(double *, int, int, double *);

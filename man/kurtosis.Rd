@@ -8,7 +8,7 @@ kurtosis(x)
 skewness(x)
 }
 \arguments{
- \item{x}{ vector or matrix of data with, say, p columns.}
+ \item{x}{ vector or matrix of data with, say, \eqn{p} columns.}
 }
 \description{
   Functions to compute measures of multivariate skewness \eqn{(b_1)} and kurtosis \eqn{(b_2)}

@@ -93,6 +93,8 @@ void FM_gls_GQR(double *x, int ldx, int nrow, int ncol, double *y, double *cov, 
 double FM_pythag(double a, double b);
 double FM_mahalanobis(double *x, int p, double *center, double *Root);
 void FM_mahal_distances(double *x, int n, int p, double *center, double *cov, int inverted, double *distances);
+void FM_WH_chisq(double *distances, int n, int p, double *z);
+void FM_WH_F(double *distances, int n, int p, double eta, double *z);
 
 /* descriptive statistics */
 void FM_mean_and_var(double *x, int nobs, double *mean, double *var);
@@ -101,6 +103,9 @@ void FM_center_and_Scatter(double *x, int n, int p, double *weights, double *cen
 void FM_skewness_and_kurtosis(double *x, int n, int p, double *center, double *Scatter, double *stats, int do_skewness);
 void FM_cov_MSSD(double *x, int n, int p, double *center, double *Scatter);
 double FM_find_quantile(double *a, int n, int k);
+
+/* Brent's method for unidimensional optimization */
+double FM_brent(double ax, double bx, double (*f)(double, void *), void *info, double tolerance);
 
 /* misc */
 void FM_centering(double *x, int n, int p, double *center);

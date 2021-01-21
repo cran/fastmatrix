@@ -42,6 +42,15 @@ FM_online_covariance(double *x, double *y, int nobs, double *xbar, double *ybar,
 }
 
 void
+FM_geometric_mean(double *x, int nobs, double *mean)
+{ /* computes the geometric mean using a compensated product scheme */
+  double prod;
+
+  FM_compensated_product(x, nobs, &prod);
+  *mean = R_pow(prod, 1.0 / nobs);
+}
+
+void
 FM_center_and_Scatter(double *x, int n, int p, double *weights, double *center, double *Scatter)
 { /* compute center and Scatter estimates using an online algorithm
    * based on AS 41: Applied Statistics 20, 1971, 206-209. doi: 10.2307/2346477 */

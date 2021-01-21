@@ -15,10 +15,11 @@
 #include <R_ext/Applic.h>
 #include <R_ext/Rdynload.h>
 
-/* Rdynload defines "typedef void * (*DL_FUNC) (), which is just right
+/* Rdynload defines typedef void * (*DL_FUNC) (), which is just right
  * for almost all the routines that return void. We add two more */
-typedef int (*INT_FUNC)();      /* pointer to a function which returns an int */
-typedef double (*DBL_FUNC)();   /* pointer to a function which returns a double */
+typedef int (*INT_FUNC)();           /* pointer to a function which returns an int */
+typedef double (*DBL_FUNC)();        /* pointer to a function which returns a double */
+typedef double (*f)(double, void *); /* pointer to a function, used by 'FM_brent' */
 
 /* BLAS-1: external API */
 
@@ -534,6 +535,20 @@ void FM_mahal_distances(double *x, int n, int p, double *center, double *cov, in
   fun(x, n, p, center, cov, inverted, distances);
 }
 
+void FM_WH_chisq(double *distances, int n, int p, double *z) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_WH_chisq");
+  fun(distances, n, p, z);
+}
+
+void FM_WH_F(double *distances, int n, int p, double eta, double *z) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_WH_F");
+  fun(distances, n, p, eta, z);
+}
+
 /* Descriptive statistics: external API */
 
 void FM_mean_and_var(double *x, int nobs, double *mean, double *var) {
@@ -578,6 +593,17 @@ double FM_find_quantile(double *a, int n, int k) {
     if (fun == NULL) Rf_error("cannot find function 'FM_find_quantile'");
   }
   return(fun(a, n, k));
+}
+
+/* Brent's method for unidimensional optimization: external API */
+
+double FM_brent(double ax, double bx, double (*f)(double, void *), void *info, double tolerance) {
+  static DBL_FUNC fun = NULL;
+  if (fun == NULL) {
+    fun = (DBL_FUNC) R_GetCCallable("fastmatrix", "FM_brent");
+    if (fun == NULL) Rf_error("cannot find function 'FM_brent'");
+  }
+  return(fun(ax, bx, f, info, tolerance));
 }
 
 /* Misc: external API */

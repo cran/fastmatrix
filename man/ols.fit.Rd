@@ -12,8 +12,8 @@ ols.fit(x, y, method = "qr", \dots)
   used directly unless by experienced users.
 }
 \arguments{
-  \item{x}{ design matrix of dimension \code{n * p}.}
-  \item{y}{ vector of observations of length \code{n}.}
+  \item{x}{ design matrix of dimension \eqn{n\times q}.}
+  \item{y}{ vector of observations of length \eqn{n}.}
   \item{method}{ currently, methods \code{"chol"}, \code{"qr"} (default), \code{"svd"}
   and \code{"sweep"} are supported.}
   \item{\dots}{ currently disregarded.}

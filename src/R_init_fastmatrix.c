@@ -16,6 +16,7 @@ static const R_CMethodDef CEntries[]  = {
   CALLDEF(dupl_right_mult,        9),
   CALLDEF(dupl_right_trans,       8),
   CALLDEF(duplication_mat,        4),
+  CALLDEF(geometric_mean,         3),
   CALLDEF(kronecker_prod,         7),
   CALLDEF(lu_dcmp,                5),
   CALLDEF(lu_inverse,             4),
@@ -28,12 +29,14 @@ static const R_CMethodDef CEntries[]  = {
   CALLDEF(norm_inf,               4),
   CALLDEF(norm_minkowski,         5),
   CALLDEF(OLS_qr,                10),
+  CALLDEF(OLS_ridge,             20),
   CALLDEF(power_method,           9),
   CALLDEF(sherman_morrison,       6),
   CALLDEF(skewness_and_kurtosis,  7),
   CALLDEF(svd_dcmp,              11),
   CALLDEF(sweep_operator,         6),
   CALLDEF(symmetrizer_prod,       6),
+  CALLDEF(wilson_hilferty_chisq,  4),
   {NULL, NULL, 0}
 };
 
@@ -138,20 +141,30 @@ void R_init_fastmatrix(DllInfo *dll)
   R_RegisterCCallable("fastmatrix", "FM_invert_triangular",     (DL_FUNC) &FM_invert_triangular);
 
   /* least square procedures */
-  R_RegisterCCallable("fastmatrix", "FM_lsfit",                 (DL_FUNC) &FM_lsfit);
   R_RegisterCCallable("fastmatrix", "FM_gls_GQR",               (DL_FUNC) &FM_gls_GQR);
+  R_RegisterCCallable("fastmatrix", "FM_lsfit",                 (DL_FUNC) &FM_lsfit);
 
   /* distances */
   R_RegisterCCallable("fastmatrix", "FM_pythag",                (DL_FUNC) &FM_pythag);
   R_RegisterCCallable("fastmatrix", "FM_mahalanobis",           (DL_FUNC) &FM_mahalanobis);
+  R_RegisterCCallable("fastmatrix", "FM_WH_chisq",              (DL_FUNC) &FM_WH_chisq);
+  R_RegisterCCallable("fastmatrix", "FM_WH_F",                  (DL_FUNC) &FM_WH_F);
+
+  /* products */
+  R_RegisterCCallable("fastmatrix", "FM_compensated_product",   (DL_FUNC) &FM_compensated_product);
+  R_RegisterCCallable("fastmatrix", "FM_two_product_FMA",       (DL_FUNC) &FM_two_product_FMA);
 
   /* descriptive statistics code callable from other packages */
-  R_RegisterCCallable("fastmatrix", "FM_mean_and_var",          (DL_FUNC) &FM_mean_and_var);
-  R_RegisterCCallable("fastmatrix", "FM_online_covariance",     (DL_FUNC) &FM_online_covariance);
   R_RegisterCCallable("fastmatrix", "FM_center_and_Scatter",    (DL_FUNC) &FM_center_and_Scatter);
-  R_RegisterCCallable("fastmatrix", "FM_skewness_and_kurtosis", (DL_FUNC) &FM_skewness_and_kurtosis);
   R_RegisterCCallable("fastmatrix", "FM_cov_MSSD",              (DL_FUNC) &FM_cov_MSSD);
   R_RegisterCCallable("fastmatrix", "FM_find_quantile",         (DL_FUNC) &FM_find_quantile);
+  R_RegisterCCallable("fastmatrix", "FM_geometric_mean",        (DL_FUNC) &FM_geometric_mean);
+  R_RegisterCCallable("fastmatrix", "FM_mean_and_var",          (DL_FUNC) &FM_mean_and_var);
+  R_RegisterCCallable("fastmatrix", "FM_online_covariance",     (DL_FUNC) &FM_online_covariance);
+  R_RegisterCCallable("fastmatrix", "FM_skewness_and_kurtosis", (DL_FUNC) &FM_skewness_and_kurtosis);
+
+  /* Brent's method for unidimensional optimization */
+  R_RegisterCCallable("fastmatrix", "FM_brent",                 (DL_FUNC) &FM_brent);
 
   /* misc code callable from other packages */
   R_RegisterCCallable("fastmatrix", "FM_centering",             (DL_FUNC) &FM_centering);
