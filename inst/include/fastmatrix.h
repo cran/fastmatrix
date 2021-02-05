@@ -97,12 +97,13 @@ void FM_WH_chisq(double *distances, int n, int p, double *z);
 void FM_WH_F(double *distances, int n, int p, double eta, double *z);
 
 /* descriptive statistics */
-void FM_mean_and_var(double *x, int nobs, double *mean, double *var);
-void FM_online_covariance(double *x, double *y, int nobs, double *xbar, double *ybar, double *xvar, double *yvar, double *cov);
 void FM_center_and_Scatter(double *x, int n, int p, double *weights, double *center, double *Scatter);
-void FM_skewness_and_kurtosis(double *x, int n, int p, double *center, double *Scatter, double *stats, int do_skewness);
 void FM_cov_MSSD(double *x, int n, int p, double *center, double *Scatter);
 double FM_find_quantile(double *a, int n, int k);
+void FM_mean_and_var(double *x, int nobs, double *mean, double *var);
+void FM_online_center(double *x, int n, int p, double *weights, double *center);
+void FM_online_covariance(double *x, double *y, int nobs, double *xbar, double *ybar, double *xvar, double *yvar, double *cov);
+void FM_skewness_and_kurtosis(double *x, int n, int p, double *center, double *Scatter, double *stats, int do_skewness);
 
 /* Brent's method for unidimensional optimization */
 double FM_brent(double ax, double bx, double (*f)(double, void *), void *info, double tolerance);

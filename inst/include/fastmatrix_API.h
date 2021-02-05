@@ -565,6 +565,13 @@ void FM_online_covariance(double *x, double *y, int nobs, double *xbar, double *
   fun(x, y, nobs, xbar, ybar, xvar, yvar, cov);
 }
 
+void FM_online_center(double *x, int n, int p, double *weights, double *center) {
+  static void (*fun)() = NULL;
+  if (fun == NULL)
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_online_center");
+  fun(x, n, p, weights, center);
+}
+
 void FM_center_and_Scatter(double *x, int n, int p, double *weights, double *center, double *Scatter) {
   static void (*fun)() = NULL;
   if (fun == NULL)

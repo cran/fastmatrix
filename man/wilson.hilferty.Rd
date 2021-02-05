@@ -11,9 +11,8 @@
   \item{x}{ vector or matrix of data with, say, \eqn{p} columns.}
 }
 \details{
-  Let \eqn{F} the following random variable:
-  \deqn{F = \frac{D^2/p}{1-2\eta}}{F = D^2/(p(1-2\eta))}
-  where \eqn{D^2} denotes the squared Mahalanobis distance defined as
+  Let \eqn{F = D^2/p} be a random variable, where \eqn{D^2} denotes the squared Mahalanobis
+  distance defined as
   \deqn{D^2 = (\bold{x} - \bold{\mu})^T \bold{\Sigma}^{-1} (\bold{x} - \bold{\mu})}
 
   Thus the Wilson-Hilferty transformation is given by
