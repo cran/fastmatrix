@@ -1,4 +1,4 @@
-/* ID: fastmatrix.h, last updated 2020-09-29, F.Osorio */
+/* ID: fastmatrix.h, last updated 2021-03-03, F.Osorio */
 
 #ifndef FASTMATRIX_H
 #define FASTMATRIX_H
@@ -14,14 +14,16 @@
 #include <R_ext/Applic.h>
 
 /* some definitions */
-#define DNULLP     (double *) 0
-#define EPS_CONV   1.0e-2
-#define GOLDEN     0.3819660112501051
-#define MAX(a,b)   (((a)>(b)) ? (a) : (b))
-#define MIN(a,b)   (((a)<(b)) ? (a) : (b))
-#define repeat     for(;;)
-#define SGN(x)     (((x) >= 0) ? 1.0 : -1.0)
-#define SQR(x)     R_pow_di(x, 2)
+#define CUBE(x)         R_pow_di(x, 3)
+#define DNULLP          (double *) 0
+#define EPS_CONV        1.0e-2
+#define GOLDEN          0.3819660112501051
+#define MAX(a,b)        (((a)>(b)) ? (a) : (b))
+#define MIN(a,b)        (((a)<(b)) ? (a) : (b))
+#define OFFSET(n, inc)  (((inc) > 0) ? 0 : ((n) - 1) * (-(inc)))
+#define repeat          for(;;)
+#define SGN(x)          (((x) >= 0) ? 1.0 : -1.0)
+#define SQR(x)          R_pow_di(x, 2)
 
 /* operations on arrays */
 void F77_NAME(arraymult)(double *, int *, int *, int *, double *, int *, int *, int *, double *, int *, int *, double *, int *, int *);
@@ -67,8 +69,14 @@ void lu_dcmp(double *, int *, int *, int *, int *);
 void lu_inverse(double *, int *, int *, int *);
 void lu_solve(double *, int *, int *, int *, double *, int *, int *);
 
+/* iterative methods to solve linear systems */
+void cg_solver(double *, int *, int *, double *, double *, int *, double *, int *, int *);
+void jacobi_solver(double *, int *, int *, double *, double *, int *, double *, int *, int *);
+void seidel_solver(double *, int *, int *, double *, double *, int *, double *, int *, int *);
+
 /* matrix decompositions */
 void chol_dcmp(double *, int *, int *, int *, int *);
+void F77_NAME(ldl_dcmp)(double *, int *, int *, double *, int *);
 void svd_dcmp(double *, int *, int *, int *, double *, int *, double *, double *, int *, int *, int *);
 
 /* OLS methods */
@@ -79,6 +87,7 @@ void OLS_qr(double *, int *, int *, int *, double *, double *, double *, double 
 void OLS_ridge(double *, int *, int *, int *, double *, double *, double *, double *, double *, double *, double *, double *, double *, double *, double *, double *, double *, int *, int *, double *);
 
 /* descriptive statistics */
+void central_moments(double *, int *, double *, double *, double *, double *);
 void cov_weighted(double *, int *, int *, double *, double *, double *);
 void cov_MSSD(double *, int *, int *, double *, double *);
 void geometric_mean(double *, int *, double *);
@@ -90,13 +99,17 @@ void wilson_hilferty_chisq(double *, int *, int *, double *);
 void sweep_operator(double *, int *, int *, int *, int *, int *);
 void F77_NAME(sweepop)(double *, int *, int *, int *, int *, int *);
 
+/* Brent's method for unidimensional optimization */
+double brent(double, double, double (*f)(double, void *), void *, double);
+
 /* utils on matrices */
 void equilibrate_mat(double *, int *, int *, int *, double *, double *, int *);
 void F77_NAME(equilibrate_cols)(double *, int *, int *, int *, double *, double *, int *, int *);
-void F77_NAME(hadamard_prod)(double *, double *, int *, double *);
+void hadamard_prod(double *, double *, int *, double *);
 void F77_NAME(inner_frobenius)(double *, int *, double *, int *, int *, int *, double *);
 void mat2vech(double *, int *, int *, double *);
 void F77_NAME(pivot_mat)(double *, int *, int *, int *);
+void whitening_chol(double *, int *, int *, double *);
 
 /* ========================================================================== *
  * symbols callable from other packages
@@ -198,6 +211,7 @@ void FM_compensated_product(double *, int, double *);
 
 /* descriptive statistics */
 void FM_mean_and_var(double *, int, double *, double *);
+void FM_moments(double *, int, double *, double *, double *, double *);
 void FM_online_covariance(double *, double *, int, double *, double *, double *, double *, double *);
 void FM_geometric_mean(double *, int, double *);
 void FM_online_center(double *, int, int, double *, double *);
@@ -205,9 +219,6 @@ void FM_center_and_Scatter(double *, int, int, double *, double *, double *);
 void FM_skewness_and_kurtosis(double *, int, int, double *, double *, double *, int);
 void FM_cov_MSSD(double *, int, int, double *, double *);
 double FM_find_quantile(double *, int, int);
-
-/* Brent's method for unidimensional optimization */
-double FM_brent(double, double, double (*f)(double, void *), void *, double);
 
 /* misc */
 void FM_centering(double *, int, int, double *);
