@@ -1,3 +1,9 @@
+0.3-8196 (Oct 16, 2021)
+ * Added function to build the Helmert matrix of order 'n'.
+ * Function for calculation of the mediancenter was added.
+ * Character strings in C wrappers to BLAS and LAPACK functions now are portable
+   (according to guidelines described in 'Writing R Extensions' Section 6.6.2)
+
 0.3-819 (May 07, 2021)
  * Added functions for solving linear systems using Jacobi, Gauss-Seidel and conjugate
    gradients iterative methods.
