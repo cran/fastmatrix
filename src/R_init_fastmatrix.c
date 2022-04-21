@@ -1,4 +1,4 @@
-/* $ID: init.c, last updated 2022-02-10, F.Osorio */
+/* $ID: init.c, last updated 2022-02-27, F.Osorio */
 
 #include "fastmatrix.h"
 #include <R_ext/Rdynload.h>
@@ -55,6 +55,7 @@ static const R_CMethodDef CEntries[]  = {
 static const R_FortranMethodDef F77Entries[] = {
   F77DEF(arraymult,              14),
   F77DEF(bracketprod,            11),
+  F77DEF(circulant_mat,           5),
   F77DEF(comm_rows,               3),
   F77DEF(comm_left_mult,         10),
   F77DEF(comm_right_mult,        10),
@@ -116,6 +117,7 @@ void R_init_fastmatrix(DllInfo *dll)
   R_RegisterCCallable("fastmatrix", "FM_GAXPY",                 (DL_FUNC) &FM_GAXPY);
   R_RegisterCCallable("fastmatrix", "FM_logAbsDet",             (DL_FUNC) &FM_logAbsDet);
   R_RegisterCCallable("fastmatrix", "FM_mult_mat",              (DL_FUNC) &FM_mult_mat);
+  R_RegisterCCallable("fastmatrix", "FM_mult_mat_vec",          (DL_FUNC) &FM_mult_mat_vec);
   R_RegisterCCallable("fastmatrix", "FM_mult_triangular",       (DL_FUNC) &FM_mult_triangular);
   R_RegisterCCallable("fastmatrix", "FM_rank1_update",          (DL_FUNC) &FM_rank1_update);
   R_RegisterCCallable("fastmatrix", "FM_scale_mat",             (DL_FUNC) &FM_scale_mat);

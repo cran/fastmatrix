@@ -1,4 +1,4 @@
-/* ID: fastmatrix.h, last updated 2022-02-10, F.Osorio */
+/* ID: fastmatrix.h, last updated 2022-02-27, F.Osorio */
 
 #ifndef FASTMATRIX_H
 #define FASTMATRIX_H
@@ -123,7 +123,8 @@ double brent(double, double, double (*f)(double, void *), void *, double);
 void bezier_smoother(double *, double *, int *, double *, int *, double *, double *);
 void F77_NAME(decasteljau)(double *, double *, int *, double *, double *);
 
-/* utils on matrices */
+/* misc */
+void F77_NAME(circulant_mat)(double *, int *, double *, int *, int *);
 void hadamard_prod(double *, double *, int *, double *);
 void F77_NAME(inner_frobenius)(double *, int *, double *, int *, int *, int *, double *);
 void mat2vech(double *, int *, int *, double *);
@@ -186,6 +187,7 @@ void FM_crossprod(double *, double *, int, int, int, double *, int, int, int);
 void FM_GAXPY(double *, double, double *, int, int, int, double *, double, int);
 double FM_logAbsDet(double *, int, int);
 void FM_mult_mat(double *, double *, int, int, int, double *, int, int, int);
+void FM_mult_mat_vec(double *, double *, int, int, int, double *);
 void FM_mult_triangular(double *, double *, int, int, double *, int);
 void FM_rank1_update(double *, int, int, int, double, double *, double *);
 void FM_scale_mat(double *, int, double, double *, int, int, int);
@@ -255,6 +257,7 @@ double FM_find_quantile(double *, int, int);
 /* misc */
 void FM_centering(double *, int, int, double *);
 void FM_cov2cor(double *, int);
+void FM_krylov_mat(double *, int, int, double *, double *, int, int, int *);
 void FM_sherman_morrison(double *, int, int, double *, double *, int);
 
 /* 'DEBUG' routine */

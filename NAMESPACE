@@ -6,8 +6,8 @@ importFrom("stats",
            pt, quantile, var)
 
 ## Our exports:
-export(array.mult, asSymmetric, bezier, bracket.prod, cg, cholupdate, comm.info,
-       comm.prod, commutation, constructX, cov.MSSD, cov.weighted, dupl.cross,
+export(array.mult, asSymmetric, bezier, bracket.prod, cg, cholupdate, circulant,
+       comm.info, comm.prod, commutation, constructX, cov.MSSD, cov.weighted, dupl.cross,
        dupl.info, dupl.prod, duplication, equilibrate, extractL, extractU, geomean,
        hadamard, helmert, kurtosis, is.lu, is.lower.tri, is.upper.tri, jacobi,
        kronecker.prod, ldl, lu, lu2inv, Mahalanobis, matrix.inner, matrix.norm,

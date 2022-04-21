@@ -1,4 +1,8 @@
-0.4 (Feb 12, 2022)
+0.4-1 (Apr 20, 2022)
+ * Added function to form a symmetric circulant matrix.
+ * Deprecated legacy S constants were fixed.
+
+0.4 (Feb 13, 2022)
  * Added function for rank-1 update to Cholesky factorization.
  * Method "MSE" for optimal selection of ridge parameter was added.
  * Added procedure to equilibrate symmetric matrices.
