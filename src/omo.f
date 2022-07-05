@@ -1,4 +1,4 @@
-c ID: blas_extra.f, last updated 2022-04-20, F.Osorio
+c ID: omo.f, last updated 2022-04-20, F.Osorio
 
 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
       DOUBLE PRECISION FUNCTION blinf(a, lda, n, p, x, y, info)
