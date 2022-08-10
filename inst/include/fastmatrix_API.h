@@ -1,4 +1,4 @@
-/* $ID: fastmatrix_API.h, last updated 2022-07-04, F.Osorio */
+/* $ID: fastmatrix_API.h, last updated 2022-08-01, F.Osorio */
 
 #ifndef FASTMATRIX_API_H
 #define FASTMATRIX_API_H
@@ -201,31 +201,31 @@ void BLAS3_trsm(double alpha, double *a, int lda, int nrow, int ncol, char *side
 }
 
 /* ========================================================================== *
- * other matrix operations: external API
+ * OMO: external API
  * ========================================================================== */
 
-double FM_blinf(double *a, int lda, int n, int p, double *x, double *y, int *info) {
+double OMO_blinf(double *a, int lda, int n, int p, double *x, double *y) {
   static DBL_FUNC fun = NULL;
   if (fun == NULL) {
-    fun = (DBL_FUNC) R_GetCCallable("fastmatrix", "FM_blinf");
-    if (fun == NULL) Rf_error("cannot find function 'FM_blinf'");
+    fun = (DBL_FUNC) R_GetCCallable("fastmatrix", "OMO_blinf");
+    if (fun == NULL) Rf_error("cannot find function 'OMO_blinf'");
   }
-  return(fun(a, lda, n, p, x, y, info));
+  return(fun(a, lda, n, p, x, y));
 }
 
-double FM_quadf(double *a, int lda, int n, double *x, int *info) {
+double OMO_quadf(double *a, int lda, int n, double *x) {
   static DBL_FUNC fun = NULL;
   if (fun == NULL) {
-    fun = (DBL_FUNC) R_GetCCallable("fastmatrix", "FM_quadf");
-    if (fun == NULL) Rf_error("cannot find function 'FM_quadf'");
+    fun = (DBL_FUNC) R_GetCCallable("fastmatrix", "OMO_quadf");
+    if (fun == NULL) Rf_error("cannot find function 'OMO_quadf'");
   }
-  return(fun(a, lda, n, x, info));
+  return(fun(a, lda, n, x));
 }
 
-void FM_murrv(double *y, double *a, int lda, int n, int p, double *x, int *info) {
+void OMO_murrv(double *y, double *a, int lda, int n, int p, double *x, int *info) {
   static void (*fun)() = NULL;
   if (fun == NULL)
-    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_murrv");
+    fun = (void (*)) R_GetCCallable("fastmatrix", "OMO_murrv");
   fun(y, a, lda, n, p, x, info);
 }
 
@@ -708,24 +708,6 @@ void FM_skewness_and_kurtosis(double *x, int n, int p, double *center, double *S
 }
 
 /* ========================================================================== *
- * correlation structures: external API
- * ========================================================================== */
-
-void FM_cor_AR1(double *cor, int p, double *rho) {
-  static void (*fun)() = NULL;
-  if (fun == NULL)
-    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_cor_AR1");
-  fun(cor, p, rho);
-}
-
-void FM_cor_CS(double *cor, int p, double *rho) {
-  static void (*fun)() = NULL;
-  if (fun == NULL)
-    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_cor_CS");
-  fun(cor, p, rho);
-}
-
-/* ========================================================================== *
  * Misc: external API
  * ========================================================================== */
 
@@ -743,11 +725,11 @@ void FM_cov2cor(double *cov, int p) {
   fun(cov, p);
 }
 
-void FM_matrix_pol(double *a, int lda, int n, double *coef, int ncoef, double *b, int ldb, int *info) {
+void FM_krylov_mat(double *a, int lda, int n, double *b, int m, double *k, int ldk, int *info) {
   static void (*fun)() = NULL;
   if (fun == NULL)
-    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_matrix_pol");
-  fun(a, lda, n, coef, ncoef, b, ldb, info);
+    fun = (void (*)) R_GetCCallable("fastmatrix", "FM_krylov_mat");
+  fun(a, lda, n, b, m, k, ldk, info);
 }
 
 void FM_sherman_morrison(double *a, int lda, int n, double *b, double *d, int inverted) {

@@ -1,4 +1,4 @@
-/* ID: fastmatrix.h, last updated 2022-07-04, F.Osorio */
+/* ID: fastmatrix.h, last updated 2022-08-01, F.Osorio */
 
 #ifndef FASTMATRIX_H
 #define FASTMATRIX_H
@@ -55,15 +55,14 @@ void F77_NAME(symmetrizer_mat)(double *, int *, int *, int *, int *, double *, i
 void symmetrizer_prod(double *, int *, int *, int *, double *, int *);
 
 /* other matrix operations */
-double F77_NAME(blinf)(double *, int *, int *, int *, double *, double *, int *);
-double F77_NAME(quadf)(double *, int *, int *, double *, int *);
+double F77_NAME(blinf)(double *, int *, int *, int *, double *, double *);
+double F77_NAME(quadf)(double *, int *, int *, double *);
 double F77_NAME(murrv)(double *, double *, int *, int *, int *, double *, int *);
 
-/* routines for operations on helmert matrices */
+/* constructors of special matrices */
+void F77_NAME(frank_mat)(double *, int *, int *, int *);
 void F77_NAME(helmert_mat)(double *, int *, int *, int *);
-
-/* evaluates a real general matrix polynomial */
-void matrix_polynomial(double *, int *, int *, double *, int *, double *, int *, int *);
+void krylov_mat(double *, int *, int *, double *, int *, double *, int *, int *);
 
 /* vector norms */
 void norm_one(double *, int *, int *, double *);
@@ -190,9 +189,9 @@ void BLAS3_trmm(double, double *, int, int, int, char *, char *, char *, char *,
 void BLAS3_trsm(double, double *, int, int, int, char *, char *, char *, char *, double *, int);
 
 /* other matrix operations */
-double FM_blinf(double *, int, int, int, double *, double *, int *);
-double FM_quadf(double *, int, int, double *, int *);
-void FM_murrv(double *, double *, int, int, int, double *, int *);
+double OMO_blinf(double *, int, int, int, double *, double *);
+double OMO_quadf(double *, int, int, double *);
+void OMO_murrv(double *, double *, int, int, int, double *, int *);
 
 /* operations on vectors */
 double FM_norm_sqr(double *, int, int);
@@ -276,14 +275,14 @@ void FM_online_center(double *, int, int, double *, double *);
 void FM_skewness_and_kurtosis(double *, int, int, double *, double *, double *, int);
 
 /* correlation structures */
-void FM_cor_AR1(double *, int, double *);
-void FM_cor_CS(double *, int, double *);
+void FM_cor_AR1(double *, int, double);
+void FM_cor_CS(double *, int, double);
 
 /* misc */
 void FM_centering(double *, int, int, double *);
 void FM_cov2cor(double *, int);
+void FM_krylov_mat(double *, int, int, double *, int, double *, int, int *);
 void FM_sherman_morrison(double *, int, int, double *, double *, int);
-void FM_matrix_pol(double *, int, int, double *, int, double *, int, int *);
 
 /* 'DEBUG' routine */
 void FM_print_mat(double *, int, int, int, char *);

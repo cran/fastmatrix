@@ -1,4 +1,4 @@
-/* $ID: init.c, last updated 2022-07-04, F.Osorio */
+/* $ID: init.c, last updated 2022-08-09, F.Osorio */
 
 #include "fastmatrix.h"
 #include <R_ext/Rdynload.h>
@@ -30,13 +30,13 @@ static const R_CMethodDef CEntries[]  = {
   CALLDEF(hadamard_prod,          4),
   CALLDEF(jacobi_solver,          9),
   CALLDEF(kronecker_prod,         7),
+  CALLDEF(krylov_mat,             8),
   CALLDEF(lu_dcmp,                5),
   CALLDEF(lu_inverse,             4),
   CALLDEF(lu_solve,               7),
   CALLDEF(mahal_distances,        7),
   CALLDEF(mat2vech,               4),
   CALLDEF(matrix_norm,            6),
-  CALLDEF(matrix_polynomial,      8),
   CALLDEF(norm_one,               4),
   CALLDEF(norm_two,               4),
   CALLDEF(norm_inf,               4),
@@ -59,7 +59,7 @@ static const R_CMethodDef CEntries[]  = {
 
 static const R_FortranMethodDef F77Entries[] = {
   F77DEF(arraymult,              14),
-  F77DEF(blinf,                   7),
+  F77DEF(blinf,                   6),
   F77DEF(bracketprod,            11),
   F77DEF(circulant_mat,           5),
   F77DEF(comm_rows,               3),
@@ -67,13 +67,14 @@ static const R_FortranMethodDef F77Entries[] = {
   F77DEF(comm_right_mult,        10),
   F77DEF(commutation_mat,         6),
   F77DEF(equilibrate_cols,        8),
+  F77DEF(frank_mat,               4),
   F77DEF(helmert_mat,             4),
   F77DEF(inner_frobenius,         7),
   F77DEF(ldl_dcmp,                5),
   F77DEF(median_center,           7),
   F77DEF(murrv,                   7),
   F77DEF(pivot_mat,               4),
-  F77DEF(quadf,                   5),
+  F77DEF(quadf,                   4),
   F77DEF(symmetrizer_mat,         8),
   {NULL, NULL, 0}
 };
@@ -111,6 +112,11 @@ void R_init_fastmatrix(DllInfo *dll)
   R_RegisterCCallable("fastmatrix", "BLAS3_syrk",               (DL_FUNC) &BLAS3_syrk);
   R_RegisterCCallable("fastmatrix", "BLAS3_trmm",               (DL_FUNC) &BLAS3_trmm);
   R_RegisterCCallable("fastmatrix", "BLAS3_trsm",               (DL_FUNC) &BLAS3_trsm);
+
+  /* OMO wrappers callable from other packages */
+  R_RegisterCCallable("fastmatrix", "OMO_blinf",                (DL_FUNC) &OMO_blinf);
+  R_RegisterCCallable("fastmatrix", "OMO_quadf",                (DL_FUNC) &OMO_quadf);
+  R_RegisterCCallable("fastmatrix", "OMO_murrv",                (DL_FUNC) &OMO_murrv);
 
   /* operations on vectors */
   R_RegisterCCallable("fastmatrix", "FM_norm_sqr",              (DL_FUNC) &FM_norm_sqr);
@@ -195,7 +201,7 @@ void R_init_fastmatrix(DllInfo *dll)
   /* misc code callable from other packages */
   R_RegisterCCallable("fastmatrix", "FM_centering",             (DL_FUNC) &FM_centering);
   R_RegisterCCallable("fastmatrix", "FM_cov2cor",               (DL_FUNC) &FM_cov2cor);
-  R_RegisterCCallable("fastmatrix", "FM_matrix_pol",            (DL_FUNC) &FM_matrix_pol);
+  R_RegisterCCallable("fastmatrix", "FM_krylov_mat",            (DL_FUNC) &FM_krylov_mat);
   R_RegisterCCallable("fastmatrix", "FM_sherman_morrison",      (DL_FUNC) &FM_sherman_morrison);
 
   /* 'DEBUG' routine */
