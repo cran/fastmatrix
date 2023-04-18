@@ -8,7 +8,6 @@ static void ridge_default(double, GCVinfo);
 static void ridge_grid(double *, int, double *, GCVinfo, double *);
 static void ridge_GCV(double *, GCVinfo, double);
 static double log_GCV(double, void *);
-static double fnc1(double, double, double, double);
 static double fnc1_dot(double, double, double, double);
 static double fnc1_ddot(double, double, double, double);
 static void ridge_ORP1(double *, GCVinfo, double, int *);
@@ -202,10 +201,6 @@ log_GCV(double lambda, void *pars)
 /* functions to evaluate the MSE criterion and its derivatives, which are called
  * by ridge_ORP1 (nested functions are forbidden in ISO C) */
 static double
-fnc1(double alpha, double d2, double s2, double k) {
-  return (d2 * s2 + SQR(k * alpha)) / SQR(d2 + k);
-}
-static double
 fnc1_dot(double alpha, double d2, double s2, double k) {
   return d2 * (k * SQR(alpha) - s2) / CUBE(d2 + k);
 }
@@ -218,7 +213,7 @@ static void
 ridge_ORP1(double *lambda, GCVinfo st, double tol, int *maxit)
 { /* select optimal ridge parameter minimizing the mean squared estimation (MSE) error */
   int n = st->n, p = st->p, iter = 0;
-  double check, d2, f1, f1_dot, f1_ddot, k, knew, s2;
+  double check, d2, f1_dot, f1_ddot, k, knew, s2;
 
   /* compute s2 estimator */
   s2 = FM_norm_sqr(st->resid, 1, n) / (n - p);
@@ -228,10 +223,9 @@ ridge_ORP1(double *lambda, GCVinfo st, double tol, int *maxit)
 
   /* main loop */
   repeat {
-    f1 = f1_dot = f1_ddot = 0.0;
+    f1_dot = f1_ddot = 0.0;
     for (int j = 0; j < p; j++) {
       d2 = SQR((st->d)[j]);
-      f1 += fnc1((st->a)[j], d2, s2, k);
       f1_dot += fnc1_dot((st->a)[j], d2, s2, k);
       f1_ddot += fnc1_ddot((st->a)[j], d2, s2, k);
     }

@@ -23,6 +23,7 @@
 #define CUBE(x)         R_pow_di(x, 3)
 #define DNULLP          (double *) 0
 #define EPS_CONV        1.0e-2
+#define FOURTH(x)       R_pow_di(x, 4)
 #define GOLDEN          0.3819660112501051
 #define IZERO(x)        (((x) == 0) ? 1 : 0)
 #define MAX(a,b)        (((a)>(b)) ? (a) : (b))
@@ -82,7 +83,8 @@ void equilibrating_sym(double *, int *, double *);
 void kronecker_prod(double *, int *, int *, double *, int *, int *, double *);
 
 /* power method */
-void power_method(double *, int *, int *, int *, double *, double *, int *, double *, int *);
+void power_method(double *, int *, int *, double *, double *, int *, double *, int *);
+void inverse_power(double *, int *, int *, double *, double *, int *, double *, int *);
 
 /* Sherman-Morrison formula */
 void sherman_morrison(double *, int *, int *, double *, double *, int *);
@@ -120,6 +122,11 @@ void geometric_mean(double *, int *, double *);
 void mahal_distances(double *, int *, int *, double *, double *, int *, double *);
 void skewness_and_kurtosis(double *, int *, int *, double *, double *, double *, int *);
 void wilson_hilferty_chisq(double *, int *, int *, double *);
+
+/* tests for normality based on the standardized third and fourth moments */
+void doornik_hansen(double *, int *, double *, double *, double *);
+void jarque_bera(double *, int *, double *, double *, double *);
+void urzua_ALM(double *, int *, double *, double *, double *);
 
 /* random number generation */
 void mnorm_rand(double *, int *, int *, double *, double *);

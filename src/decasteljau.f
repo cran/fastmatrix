@@ -54,5 +54,3 @@ c
 c
       return
       END
-
-c

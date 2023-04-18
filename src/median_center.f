@@ -26,7 +26,6 @@ c     info    (output) INTEGER
 c             = 0: successful exit
 c             < 0: if info = -i, the i-th argument had an illegal value
 c
-cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 c     .. parameters ..
       DOUBLE PRECISION ZERO, ONE, LEPSD, LEPSR, LEPSI
       PARAMETER       (ZERO = 0.0d0, ONE = 1.0d0)
