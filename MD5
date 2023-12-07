@@ -1,12 +1,12 @@
-eda1c068b8fa4fd0db641401245bf07e *ChangeLog
-4218db233bb923e05acef267f6795001 *DESCRIPTION
-f269ffe35908e41d5229e4d2e53ffdc5 *NAMESPACE
+c12015717876f1f00d1f365e95884e5b *ChangeLog
+39ab9428c9aa849050320df657a5b9fb *DESCRIPTION
+4ae7c4ae4a2f1a37eff2133d48ee72c8 *NAMESPACE
 681b7f8cbb0a3985c3bc6d75a0ea0638 *R/RNG.R
 495bc8628d141401a6237a89e4ef004d *R/array.R
 85d3a6af18365fd9a57ce3de14381e84 *R/asSymmetric.R
 104b144a497c932e6dd4da5ccda98d17 *R/bezier.R
 bd0a568262370f68ae5df88dd0114c3f *R/cg.R
-4d92c3119a821c374bf8f8e860136ba5 *R/chol.R
+08964c89d736e932d5e2d85417a4371e *R/chol.R
 a53e023232bf472ad52085113d99e623 *R/circulant.R
 7e23d98093259fa2b13f11c4799f56c3 *R/commutation.R
 5e55cda5163ebcf3ff25ee0acc3bcc65 *R/condition.R
@@ -31,7 +31,7 @@ b188fcb9a6c4eb79738b73ca278da933 *R/mahalanobis.R
 068a561172a542b1a2d4f4b0274fd2fc *R/norms.R
 b6c96e6526f71d73fc9240620db67ae0 *R/ols.R
 53f15d6a7c226608de0ac9022420de78 *R/power_method.R
-8c216e36103bef31d5aa696ac958b776 *R/ridge.R
+4f63b6ed023bff57e683740de42c6ec2 *R/ridge.R
 5c41ca775e463c7f126992d9d329bd2e *R/seidel.R
 c8d576ef58403698b6c9503803415f4f *R/sherman_morrison.R
 aec3f4150237185872efa04941e1822f *R/sweep.R
@@ -40,7 +40,7 @@ aec3f4150237185872efa04941e1822f *R/sweep.R
 7b9a0a8d965381360f1cac4ca5b2e707 *R/utils.R
 baf580052d8aaac2ef5f65108558cdc3 *R/whitening.R
 ee0c842b6615bdfaacb7bc255e0a56b4 *R/wilson_hilferty.R
-9f0ca5c5f91e00a1e4038b9a7d68d01a *inst/CITATION
+7189d60ca0e2d46ad506990659b66652 *inst/CITATION
 c9ef7018505b8b01ef57e2e5b5492a1d *inst/include/fastmatrix.h
 aaa80de725fa08b1d394c79f964afb83 *inst/include/fastmatrix_API.h
 542f921b12edf14eff281ba178bb7c77 *man/Mahalanobis.Rd
@@ -80,6 +80,7 @@ c15b6b9bfc5865fd6a5b5e9381244e1d *man/ldl.Rd
 344d080eb306878b40823d842bb776d2 *man/lu2inv.Rd
 dc9119c8033f921046b34e2fcda621a2 *man/matrix.inner.Rd
 704594b52f86337de890d49814ee6933 *man/matrix.norm.Rd
+4f72e0d4e4dfa3fb21701614a779139a *man/mchol.Rd
 7e1d05a795b96e5c01565d2501f83a65 *man/mediancenter.Rd
 bd4fab67cee9c312680daa6e3f4fc4cb *man/minkowski.Rd
 6f8d21d101368cc7f205c2d0e436267a *man/moments.Rd
@@ -104,7 +105,7 @@ d65191c97ae424428666db5bc0bed81a *man/vec.Rd
 5a4b64a8305e03b366cfc881df5105dc *man/wilson.hilferty.Rd
 5be98ebff0b1b8155e715497e98649a3 *src/Makevars
 3db2a1bacbc68009cb9cfd018953f21e *src/RNG.c
-577b1307932777d5a1295d30eefe16b6 *src/R_init_fastmatrix.c
+6bfc5bef51543967548a20e6b4a25a56 *src/R_init_fastmatrix.c
 5987a8f72bf30a708979cbb3f8f086af *src/array.f
 07345802f50d7e6918202ac03b771a44 *src/bezier.c
 5c305b978e151f21625bc1c3321dae1b *src/blas_1.c
@@ -121,7 +122,7 @@ be047af340f4f1e4d17ac29a7fd3592b *src/cov.c
 0e034c92382c797d5bf93402ce89e786 *src/duplication.c
 2c2df17a23a100b214ac42a045aa9154 *src/equilibrate.c
 f8cade23affc0fb7128a185ae5292a6c *src/equilibrate_cols.f
-a9d05227f5d7cad28811ae9555ef4e53 *src/fastmatrix.h
+563237acaaae65a7e33e55b9054d80df *src/fastmatrix.h
 32138a786f140704c6f301997a3b8f9e *src/frank.f
 e8dca94b9951e03482f5dcfaa6b326a5 *src/hadamard.c
 53376f245548490e56d96daf5fadf72b *src/helmert.f
@@ -135,7 +136,8 @@ bf0f01500c3526f90acb61e796d81636 *src/kronecker.c
 cb4161a639bd8da482c9e143df000817 *src/lu.c
 aacca22a78a5796fa03e1992151211f8 *src/mahalanobis.c
 0e1e82edc30d985b63a24d02e4c3b666 *src/mardia.c
-154fe7f65735d539d54316d18087bf12 *src/matrix_API.c
+096d3546b3af6723cad12e0cc14037c4 *src/matrix_API.c
+030214d3c86b965965ad7b09fb7947f6 *src/mchol_GMW.f
 e43db7eae10fc3af455e6ffe046ce536 *src/median_center.f
 1e89d52882cd1247d20050a90126f96b *src/minkowski.f
 844ab0aa14df6d2af7fb81e56e46dc21 *src/norms.c
