@@ -1,6 +1,6 @@
-c12015717876f1f00d1f365e95884e5b *ChangeLog
-39ab9428c9aa849050320df657a5b9fb *DESCRIPTION
-4ae7c4ae4a2f1a37eff2133d48ee72c8 *NAMESPACE
+7085203171ea0d537fa3814870abd501 *ChangeLog
+2bc6926822186bff0a85c43c6f5812c4 *DESCRIPTION
+8cdb04a6305752b970eac7adc5eea79c *NAMESPACE
 681b7f8cbb0a3985c3bc6d75a0ea0638 *R/RNG.R
 495bc8628d141401a6237a89e4ef004d *R/array.R
 85d3a6af18365fd9a57ce3de14381e84 *R/asSymmetric.R
@@ -39,11 +39,12 @@ aec3f4150237185872efa04941e1822f *R/sweep.R
 99ecf300352de80d9c5a7d9874b24a12 *R/tri_mat.R
 7b9a0a8d965381360f1cac4ca5b2e707 *R/utils.R
 baf580052d8aaac2ef5f65108558cdc3 *R/whitening.R
-ee0c842b6615bdfaacb7bc255e0a56b4 *R/wilson_hilferty.R
-7189d60ca0e2d46ad506990659b66652 *inst/CITATION
-c9ef7018505b8b01ef57e2e5b5492a1d *inst/include/fastmatrix.h
-aaa80de725fa08b1d394c79f964afb83 *inst/include/fastmatrix_API.h
+d1dd55eb2fa49f75b7e15cd091a29c04 *R/wilson_hilferty.R
+fe479f46a5b2ab10d79197e51d7f3146 *inst/CITATION
+146ee8515bc6931d46c365e6dd14d86c *inst/include/fastmatrix.h
+c734dfce170c9eb8a3adb632b89d8f4c *inst/include/fastmatrix_API.h
 542f921b12edf14eff281ba178bb7c77 *man/Mahalanobis.Rd
+978c32070e1af66f9126b934f9182866 *man/WH.normal.Rd
 522da9bfcfe418f6dc506f7ef5ffdf3a *man/array.mult.Rd
 f06311a0fa0ea09bd4bade8430cfa7b3 *man/asSymmetric.Rd
 e9b4ecf428e8ec35b6885e2c5dc836fa *man/bezier.Rd
@@ -90,7 +91,7 @@ cf1fdfb1958e22f387297f846e5942f2 *man/ols.fit.Rd
 0f969f6bf36fa570977627818fc4addf *man/power.method.Rd
 6b46f884531663c27e079cecab4010c8 *man/rball.Rd
 943f66ed80fd201c36ed57179fda8ebc *man/ridge.Rd
-409958e5b88b3a1ecc6eb2dda776ea2f *man/rmnorm.Rd
+323aca2328a1682d90aaf0cdc1881d55 *man/rmnorm.Rd
 d0e016e103585aed75bb012e0f121c48 *man/rsphere.Rd
 529b241ea014583fd3d9d3ed81eca7d0 *man/scaled.condition.Rd
 47243dc7ee4cc4d9815686b64248e55c *man/seidel.Rd
@@ -102,10 +103,10 @@ f1590033a634550f753c84f6f5d437c7 *man/symm.info.Rd
 d65191c97ae424428666db5bc0bed81a *man/vec.Rd
 700775b73c681f727e96f1ce31bdb800 *man/vech.Rd
 111cda2fabf47219189c55bf92de3499 *man/whitening.Rd
-5a4b64a8305e03b366cfc881df5105dc *man/wilson.hilferty.Rd
+85272809ebb611f471d9f785a2f54801 *man/wilson.hilferty.Rd
 5be98ebff0b1b8155e715497e98649a3 *src/Makevars
 3db2a1bacbc68009cb9cfd018953f21e *src/RNG.c
-6bfc5bef51543967548a20e6b4a25a56 *src/R_init_fastmatrix.c
+dafa2e1e3515ff60346173f0796fbb71 *src/R_init_fastmatrix.c
 5987a8f72bf30a708979cbb3f8f086af *src/array.f
 07345802f50d7e6918202ac03b771a44 *src/bezier.c
 5c305b978e151f21625bc1c3321dae1b *src/blas_1.c
@@ -122,7 +123,7 @@ be047af340f4f1e4d17ac29a7fd3592b *src/cov.c
 0e034c92382c797d5bf93402ce89e786 *src/duplication.c
 2c2df17a23a100b214ac42a045aa9154 *src/equilibrate.c
 f8cade23affc0fb7128a185ae5292a6c *src/equilibrate_cols.f
-563237acaaae65a7e33e55b9054d80df *src/fastmatrix.h
+843b8bda6a7bc919454877a668fda80f *src/fastmatrix.h
 32138a786f140704c6f301997a3b8f9e *src/frank.f
 e8dca94b9951e03482f5dcfaa6b326a5 *src/hadamard.c
 53376f245548490e56d96daf5fadf72b *src/helmert.f
@@ -160,4 +161,4 @@ a007fe63a4f80ee194e69aaa26498aa1 *src/sort.c
 d21c98502f6ec07d8d89b15d291e0bc5 *src/symmetrizer_mat.f
 2cc6b36e50741d1f4ab8c51a5e029b70 *src/utils.c
 9efeb9a71b8de6f2418898e361dda399 *src/whitening.c
-f409ddd5f268a43bb4e014fe220e2775 *src/wilson_hilferty.c
+7a9b850c4930de8b8c90dc7a966c797a *src/wilson_hilferty.c
