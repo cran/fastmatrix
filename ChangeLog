@@ -1,4 +1,8 @@
-0.5-9017 (May 26, 2025)
+0.6 (Jul 07, 2025)
+ * We have added a function for the computation of the Lin's concordance correlation 
+   coefficient.
+
+0.5-9017 (May 27, 2025)
  * Function for the computation of a square root of a matrix was included.
  * Added function to form a Hankel matrix.
  * Added a new function to evaluate a real general matrix polynomial.
