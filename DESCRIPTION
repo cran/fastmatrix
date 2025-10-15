@@ -1,8 +1,8 @@
 Package: fastmatrix
 Type: Package
 Title: Fast Computation of some Matrices Useful in Statistics
-Version: 0.6
-Date: 2025-07-07
+Version: 0.6-2
+Date: 2025-10-14
 Authors@R: c(person("Felipe", "Osorio", role = c("aut", "cre"),
                     email = "faosorios.stat@gmail.com",
                     comment = c(ORCID = "0000-0002-4675-5201")),
@@ -28,9 +28,9 @@ License: GPL-3
 URL: https://github.com/faosorios/fastmatrix
 NeedsCompilation: yes
 LazyLoad: yes
-Packaged: 2025-07-07 17:54:56 UTC; root
+Packaged: 2025-10-14 19:16:53 UTC; root
 Author: Felipe Osorio [aut, cre] (ORCID:
     <https://orcid.org/0000-0002-4675-5201>),
   Alonso Ogueda [aut]
 Repository: CRAN
-Date/Publication: 2025-07-07 18:30:01 UTC
+Date/Publication: 2025-10-15 05:10:02 UTC
