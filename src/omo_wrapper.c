@@ -1,4 +1,4 @@
-/* $ID: omo_wrappers.c, last updated 2022-07-01, F.Osorio */
+/* $ID: omo_wrapper.c, last updated 2022-07-01, F.Osorio */
 
 #include "fastmatrix.h"
 
