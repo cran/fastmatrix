@@ -34,11 +34,6 @@ void BLAS3_syrk(double alpha, double *a, int lda, int n, int k, char *uplo, char
 void BLAS3_trmm(double alpha, double *a, int lda, int nrow, int ncol, char *side, char *uplo, char *trans, char *diag, double *y, int ldy);
 void BLAS3_trsm(double alpha, double *a, int lda, int nrow, int ncol, char *side, char *uplo, char *trans, char *diag, double *y, int ldy);
 
-/* OMO wrappers */
-double OMO_blinf(double *a, int lda, int n, int p, double *x, double *y);
-double OMO_quadf(double *a, int lda, int n, double *x);
-void OMO_murrv(double *y, double *a, int lda, int n, int p, double *x, int *info);
-
 /* operations on vectors */
 double FM_norm_sqr(double *x, int inc, int n);
 void FM_normalize(double *x, int inc, int n);

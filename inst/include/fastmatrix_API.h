@@ -211,31 +211,6 @@ void BLAS3_trsm(double alpha, double *a, int lda, int nrow, int ncol, char *side
 }
 
 /* ========================================================================== *
- * OMO: external API
- * ========================================================================== */
-
-double OMO_blinf(double *a, int lda, int n, int p, double *x, double *y) {
-  static double(*fun)(double *, int, int, int, double *, double *) = NULL;
-  if (fun == NULL)
-    fun = (double(*)(double *, int, int, int, double *, double *)) R_GetCCallable("fastmatrix", "OMO_blinf");
-  return fun(a, lda, n, p, x, y);
-}
-
-double OMO_quadf(double *a, int lda, int n, double *x) {
-  static double(*fun)(double *, int, int, double *) = NULL;
-  if (fun == NULL)
-    fun = (double(*)(double *, int, int, double *)) R_GetCCallable("fastmatrix", "OMO_quadf");
-  return fun(a, lda, n, x);
-}
-
-void OMO_murrv(double *y, double *a, int lda, int n, int p, double *x, int *info) {
-  static void(*fun)(double *, double *, int, int, int, double *, int *) = NULL;
-  if (fun == NULL)
-    fun = (void(*)(double *, double *, int, int, int, double *, int *)) R_GetCCallable("fastmatrix", "OMO_murrv");
-  fun(y, a, lda, n, p, x, info);
-}
-
-/* ========================================================================== *
  * operations on vectors: external API
  * ========================================================================== */
 
